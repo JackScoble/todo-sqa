@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h2>Create a New Task</h2>
+  <div class="card form-card">
+    <form method="post">
+      <label for="title">Task Title</label>
+      <input id="title" name="title" required>
+      
+      <label for="deadline">Deadline</label>
+      <input id="deadline" name="deadline" type="date">
+      
+      <label for="importance">Importance (1-5)</label>
+      <select id="importance" name="importance">
+        <option value="1">1 - Low</option>
+        <option value="2">2 - Low-Medium</option>
+        <option value="3" selected>3 - Medium</option>
+        <option value="4">4 - High</option>
+        <option value="5">5 - Critical</option>
+      </select>
+      
+      <div class="form-actions">
+        <button class="btn primary" type="submit">Create Task</button>
+        <a class="btn" href="{{ url_for('all_tasks') }}">← Back to Tasks</a>
+      </div>
+    </form>
+  </div>
+{% endblock %}

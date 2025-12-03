@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Task Manager</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <h1 class="brand">Task Manager</h1>
+      <nav class="main-nav">
+        <a href="{{ url_for('index') }}" class="nav-item {% if active=='home' %}active{% endif %}">Home</a>
+        <a href="{{ url_for('all_tasks') }}" class="nav-item {% if active=='tasks' %}active{% endif %}">Tasks</a>
+        <a href="{{ url_for('create_task') }}" class="nav-item {% if active=='create' %}active{% endif %}">Create</a>
+        <a href="{{ url_for('about') }}" class="nav-item {% if active=='about' %}active{% endif %}">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">&copy; {{ year }} Task Manager</div>
+  </footer>
+</body>
+</html>

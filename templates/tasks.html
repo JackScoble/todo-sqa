@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h2>All Tasks</h2>
+  <ul class="task-list">
+    {% for task in tasks %}
+      <li class="task-card {% if task.completed %}done{% endif %}">
+        <div class="task-info">
+          <a class="task-link" href="{{ url_for('task_detail', task_id=task.id) }}">{{ task.title }}</a>
+          {% if task.deadline %}
+            <span class="task-deadline">Due: {{ task.deadline }}</span>
+          {% endif %}
+        </div>
+        <div class="task-meta">
+          <span class="importance importance-{{ task.importance }}">{{ task.importance }}/5</span>
+          <a href="{{ url_for('toggle_complete', task_id=task.id) }}" class="btn-toggle {% if task.completed %}done{% endif %}" title="Toggle completion">
+            {% if task.completed %}✓{% else %}○{% endif %}
+          </a>
+        </div>
+      </li>
+    {% else %}
+      <li>No tasks yet. <a href="{{ url_for('create_task') }}">Create one</a>.</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

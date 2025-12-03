@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+  <section class="hero">
+    <h2>Welcome</h2>
+    <p class="lead">A tiny, simple task manager to track your to-dos. Create tasks, mark them complete, and click any task to see details.</p>
+    <div class="home-row">
+      <div class="card stats">
+        <h3>Stats</h3>
+        <p><strong>Total:</strong> {{ total }}</p>
+        <p class="completed"><strong>Completed:</strong> {{ completed }}</p>
+        <p class="pending"><strong>Pending:</strong> {{ pending }}</p>
+      </div>
+      <div class="card actions">
+        <a class="btn primary" href="{{ url_for('all_tasks') }}">View Tasks</a>
+        <a class="btn positive" href="{{ url_for('create_task') }}">Create New Task</a>
+      </div>
+    </div>
+  </section>
+{% endblock %}

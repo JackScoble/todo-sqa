@@ -1,15 +1,29 @@
 from flask import Flask
+from extensions import db
+from flask_migrate import Migrate
 
 app = Flask(__name__)
 
-@app.route('/') # www.domain.com/
-def index():
-    return "<h1>Todo Index Page</h1>"
+# Basic config for SQLite + SQLAlchemy
+app.config.setdefault('SQLALCHEMY_DATABASE_URI', 'sqlite:///tasks.db')
+app.config.setdefault('SQLALCHEMY_TRACK_MODIFICATIONS', False)
 
-@app.route('/tasks') # www.domain.com/tasks
-def all_tasks():
-    return "<h1>All Tasks Page</h1>"
+# Initialize extensions
+# Initialize extensions
+db.init_app(app)
+migrate = Migrate()
+migrate.init_app(app, db)
 
-@app.route('/task/<int:task_id>') # www.domain.com/task/1
-def task_detail(task_id):
-    return f"<h1>Task Detail Page for Task ID: {task_id}</h1>"
+# Register routes from the separate module
+from routes import register_routes
+register_routes(app)
+
+# Ensure models are imported so Flask-Migrate can detect them
+import models  # noqa: F401 (import for side-effects)
+
+
+if __name__ == '__main__':
+    # Ensure database tables exist
+    with app.app_context():
+        db.create_all()
+    app.run(debug=True)

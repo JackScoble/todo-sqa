@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h2>Edit Task</h2>
+  <div class="card form-card">
+    <form method="post">
+      <label for="title">Task Title</label>
+      <input id="title" name="title" value="{{ task.title }}" required>
+      
+      <label for="deadline">Deadline</label>
+      <input id="deadline" name="deadline" type="date" value="{{ task.deadline or '' }}">
+      
+      <label for="importance">Importance (1-5)</label>
+      <select id="importance" name="importance">
+        <option value="1" {% if task.importance == 1 %}selected{% endif %}>1 - Low</option>
+        <option value="2" {% if task.importance == 2 %}selected{% endif %}>2 - Low-Medium</option>
+        <option value="3" {% if task.importance == 3 %}selected{% endif %}>3 - Medium</option>
+        <option value="4" {% if task.importance == 4 %}selected{% endif %}>4 - High</option>
+        <option value="5" {% if task.importance == 5 %}selected{% endif %}>5 - Critical</option>
+      </select>
+      
+      <div class="form-actions">
+        <button class="btn primary" type="submit">Save Changes</button>
+        <a class="btn" href="{{ url_for('task_detail', task_id=task.id) }}">← Back</a>
+      </div>
+    </form>
+  </div>
+{% endblock %}

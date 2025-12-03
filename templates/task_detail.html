@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h2>{{ task.title }}</h2>
+  <div class="card detail">
+    <p><strong>Status:</strong> <span class="status {% if task.completed %}complete{% else %}pending{% endif %}">{{ 'Completed' if task.completed else 'Pending' }}</span></p>
+    <p><strong>Task ID:</strong> {{ task.id }}</p>
+    <p><strong>Created:</strong> {{ task.created_date }}</p>
+    {% if task.deadline %}
+      <p><strong>Deadline:</strong> {{ task.deadline }}</p>
+    {% endif %}
+    <p><strong>Importance:</strong> <span class="importance importance-{{ task.importance }}">{{ task.importance }} / 5</span></p>
+  </div>
+  <div class="detail-actions">
+    <a class="btn {% if task.completed %}secondary{% else %}positive{% endif %}" href="{{ url_for('toggle_complete', task_id=task.id) }}">
+      {% if task.completed %}↻ Mark Incomplete{% else %}✓ Mark Complete{% endif %}
+    </a>
+    <a class="btn primary" href="{{ url_for('edit_task', task_id=task.id) }}">✎ Edit Task</a>
+    <a class="btn" href="{{ url_for('all_tasks') }}">← Back to Tasks</a>
+  </div>
+{% endblock %}
